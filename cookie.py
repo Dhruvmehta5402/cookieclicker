@@ -18,6 +18,7 @@ time.sleep(2)
 grandma_counter = 0
 farm_counter = 0
 mine_counter = 0
+factory_counter = 0
 i = 0
 while True:
     i = i + 1
@@ -27,12 +28,11 @@ while True:
     try:
         farm_price = int(driver.find_element_by_id("productPrice2").text.replace(",", ""))
         mine_price = int(driver.find_element_by_id("productPrice3").text.replace(",", ""))
-        #print("reached")
-        if i == 1050:
-            print(farm_price)
+        factory_price = int(driver.find_element_by_id("productPrice4").text.replace(",", ""))
     except:
         farm_price = 1000
         mine_price = 100000
+        factory_price = 1000000
     
     if num_cookies >= grandma_price and grandma_counter < 10:
         time.sleep(0.5)
@@ -42,13 +42,14 @@ while True:
         time.sleep(0.5)
         driver.find_element_by_id("product2").click()
         farm_counter = farm_counter + 1
-    elif num_cookies >= mine_price:
+    elif num_cookies >= mine_price and mine_counter < 10:
         time.sleep(0.5)
         driver.find_element_by_id("product3").click()
         mine_counter = mine_counter + 1
-    if mine_counter > 2:
-        mine_counter = 0
-        farm_counter = 0
+    elif num_cookies >= factory_price:
+        time.sleep(0.5)
+        driver.find_element_by_id("product4").click()
+        factory_counter = factory_counter + 1
 
 
 time.sleep(20)
